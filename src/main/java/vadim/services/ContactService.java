@@ -35,9 +35,8 @@ public class ContactService {
             throw new IllegalArgumentException("Name cannot be empty");
         }
         if (newContactDetails.getPhoneNumber() == null || newContactDetails.getPhoneNumber().trim().equals("")) {
-            throw new IllegalArgumentException("Phone cannot be Empty");
+            throw new IllegalArgumentException("Phone number cannot be empty");
         }
-
         Person person = personService.getPerson(personId);
         Contact contact = Contact.builder()
                 .name(newContactDetails.getName())
@@ -55,10 +54,10 @@ public class ContactService {
 
     public Contact updateContact(Long personId, Long contactId, Contact updatedData) {
         Contact contact = getContact(personId, contactId);
-        if (updatedData.getName() != null && updatedData.getName().trim().equals("")) {
+        if (updatedData.getName() != null && !updatedData.getName().trim().equals("")) {
             contact.setName(updatedData.getName());
         }
-        if (updatedData.getPhoneNumber() != null && updatedData.getPhoneNumber().trim().equals("")) {
+        if (updatedData.getPhoneNumber() != null && !updatedData.getPhoneNumber().trim().equals("")) {
             contact.setPhoneNumber(updatedData.getPhoneNumber());
         }
         contactRepository.save(contact);

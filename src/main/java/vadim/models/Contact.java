@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Builder
@@ -31,4 +32,25 @@ public class Contact {
     @NotNull
     @ManyToOne
     private Person person;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contact contact = (Contact) o;
+        return id == contact.id && Objects.equals(name, contact.name) && Objects.equals(phoneNumber, contact.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, phoneNumber);
+    }
+
+    @Override
+    public String toString() {
+        return "Contact: " +
+                "id = " + id +
+                ", name = " + name +
+                ", phoneNumber = " + phoneNumber;
+    }
 }

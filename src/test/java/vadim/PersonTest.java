@@ -55,14 +55,14 @@ public class PersonTest {
     }
 
     @Test
-    public void createPersonErrorObjectNull() {
+    public void createPersonErrorDataIsNull() {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> personService.createPerson(null));
         assertExceptionMessage("Illegal arguments", exception);
     }
 
     @Test
-    public void createPersonErrorNameNull() {
+    public void createPersonErrorNameIsNull() {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> personService.createPerson(Person.builder()
                         .name(null)
@@ -71,7 +71,8 @@ public class PersonTest {
         assertExceptionMessage("Name cannot be empty", exception);
     }
 
-    public void createPersonErrorPhoneNumberNull() {
+    @Test
+    public void createPersonErrorPhoneNumberIsNull() {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> personService.createPerson(Person.builder()
                         .name("Vadim")
