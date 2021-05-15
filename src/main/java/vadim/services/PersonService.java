@@ -53,10 +53,10 @@ public class PersonService {
 
     public Person updatePerson(Long id, Person updatedData) {
         Person person = getPerson(id);
-        if (updatedData.getName() != null && updatedData.getName().trim().equals("")) {
+        if (updatedData.getName() != null && !updatedData.getName().trim().equals("")) {
             person.setName(updatedData.getName());
         }
-        if (updatedData.getPhoneNumber() != null && updatedData.getName().trim().equals("")) {
+        if (updatedData.getPhoneNumber() != null && !updatedData.getName().trim().equals("")) {
             person.setPhoneNumber(updatedData.getPhoneNumber());
         }
         save(person);
