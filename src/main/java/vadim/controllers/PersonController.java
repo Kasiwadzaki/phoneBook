@@ -37,4 +37,9 @@ public class PersonController {
     public Person updatePerson(@PathVariable("id") Long id, @RequestBody Person person) {
         return personService.updatePerson(id, person);
     }
+
+    @GetMapping
+    public List<Person> findPersonByName(@RequestParam String name) {
+        return personService.findPersonsWhoContainsName(name);
+    }
 }

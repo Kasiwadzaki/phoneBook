@@ -6,7 +6,9 @@ import vadim.models.Contact;
 import vadim.models.Person;
 import vadim.repositories.PersonRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonService {
@@ -65,5 +67,16 @@ public class PersonService {
 
     public void save(Person person) {
         personRepository.save(person);
+    }
+
+    public List<Person> findPersonsWhoContainsName(String name) {
+        List<Person> persons = personRepository.findAll();
+        return personsContainsName(persons, name);
+    }
+
+    public List<Person> personsContainsName(List<Person> persons, String name) {
+        return persons.stream()
+                .filter(p -> p.getName().trim().toLowerCase().contains(name.trim().toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

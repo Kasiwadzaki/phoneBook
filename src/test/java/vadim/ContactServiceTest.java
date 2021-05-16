@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ComponentScan
-public class ContactTest {
+public class ContactServiceTest {
     @Autowired
     ContactService contactService;
     @Autowired

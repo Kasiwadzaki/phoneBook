@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ComponentScan
-public class PersonTest {
+public class PersonServiceTest {
 
     @Autowired
     private PersonService personService;
@@ -97,6 +97,13 @@ public class PersonTest {
         List<Person> persons = personService.getAllPersons();
         personService.deletePerson(persons.get(1).getId());
         assertEquals(1, personService.getAllPersons().size());
+    }
+
+    @Test
+    @Sql("/twoPersons.sql")
+    public void findPerson() {
+        List<Person> persons = personService.findPersonsWhoContainsName("a");
+        assertEquals(2, persons.size());
     }
 
     private static void assertExceptionMessage(String expected, Exception exception) {
