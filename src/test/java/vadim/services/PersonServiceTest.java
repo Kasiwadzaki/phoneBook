@@ -1,14 +1,14 @@
-package vadim;
+package vadim.services;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import vadim.models.Person;
-import vadim.services.PersonService;
 
 import java.util.List;
 
@@ -18,40 +18,41 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ComponentScan
+@Sql("/twoPersons.sql")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PersonServiceTest {
 
     @Autowired
     private PersonService personService;
 
     @Test
-    @Sql("/twoPersons.sql")
     public void getAllPersons() {
         List<Person> personList = personService.getAllPersons();
         assertEquals(2, personList.size());
     }
 
     @Test
-    @Sql("/twoPersons.sql")
     public void getOnePerson() {
         Person person = personService.getPerson(2L);
         assertEquals("Max", person.getName());
     }
 
     @Test
-    @Sql("/twoPersons.sql")
     public void getPersonError() {
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> personService.getPerson(10L));
+                () -> personService.getPerson(100L));
         assertExceptionMessage("No such user exists", exception);
     }
 
     @Test
     public void createPerson() {
+        System.out.println(personService.getAllPersons());
         Person person = personService.createPerson(Person.builder()
                 .name("Max")
                 .phoneNumber("45678")
                 .build());
-        assertEquals(person, personService.getPerson(1L));
+        System.out.println(personService.getAllPersons());
+        assertEquals(person, personService.getPerson(3L));
     }
 
     @Test
@@ -82,7 +83,6 @@ public class PersonServiceTest {
     }
 
     @Test
-    @Sql("/twoPersons.sql")
     public void updatePerson() {
         Person person = personService.updatePerson(1L, Person.builder()
                 .name("Vadim")
@@ -92,7 +92,6 @@ public class PersonServiceTest {
     }
 
     @Test
-    @Sql("/twoPersons.sql")
     public void deletePerson() {
         List<Person> persons = personService.getAllPersons();
         personService.deletePerson(persons.get(1).getId());
@@ -100,7 +99,6 @@ public class PersonServiceTest {
     }
 
     @Test
-    @Sql("/twoPersons.sql")
     public void findPerson() {
         List<Person> persons = personService.findPersonsWhoContainsName("a");
         assertEquals(2, persons.size());

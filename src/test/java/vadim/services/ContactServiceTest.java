@@ -1,4 +1,4 @@
-package vadim;
+package vadim.services;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ComponentScan
+@Sql("/personWithContacts.sql")
 public class ContactServiceTest {
     @Autowired
     ContactService contactService;
@@ -26,15 +27,13 @@ public class ContactServiceTest {
     PersonService personService;
 
     @Test
-    @Sql("/personWithContacts.sql")
     public void getPersonContacts() {
         Person person = personService.getPerson(1L);
         List<Contact> contacts = contactService.getPersonContacts(person.getId());
-        assertEquals(3, contacts.size());
+        assertEquals(4, contacts.size());
     }
 
     @Test
-    @Sql("/personWithContacts.sql")
     public void getPersonContact() {
         Contact expected = Contact.builder()
                 .id(2)
@@ -47,7 +46,6 @@ public class ContactServiceTest {
     }
 
     @Test
-    @Sql("/personWithContacts.sql")
     public void getPersonContactError() {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> contactService.getContact(1L, 10L));
@@ -55,7 +53,6 @@ public class ContactServiceTest {
     }
 
     @Test
-    @Sql("/personWithContacts.sql")
     public void createContact() {
         Contact expected = Contact.builder()
                 .name("Andrey")
@@ -68,7 +65,6 @@ public class ContactServiceTest {
     }
 
     @Test
-    @Sql("/personWithContacts.sql")
     public void createContactErrorDataAndPersonIdIsNull() {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> contactService.createContact(1L, null));
@@ -79,7 +75,6 @@ public class ContactServiceTest {
     }
 
     @Test
-    @Sql("/personWithContacts.sql")
     public void createContactErrorNameIsNull() {
         Contact contact = Contact.builder()
                 .name(null)
@@ -91,7 +86,6 @@ public class ContactServiceTest {
     }
 
     @Test
-    @Sql("/personWithContacts.sql")
     public void createContactErrorPhoneNumberIsNull() {
         Contact contact = Contact.builder()
                 .name("Andrey")
@@ -103,20 +97,25 @@ public class ContactServiceTest {
     }
 
     @Test
-    @Sql("/personWithContacts.sql")
     public void deleteContact() {
         contactService.deleteContact(1L, 2L);
-        assertEquals(2, contactService.getPersonContacts(1L).size());
+        assertEquals(3, contactService.getPersonContacts(1L).size());
     }
 
     @Test
-    @Sql("/personWithContacts.sql")
     public void updateContact() {
         Contact contact = contactService.updateContact(1L, 2L, Contact.builder()
                 .name("Sergey")
                 .phoneNumber("56784")
                 .build());
         assertEquals(contact, contactService.getContact(1L, 2L));
+    }
+
+    @Test
+    @Sql("/personWithContacts.sql")
+    public void findContactsByPersonAndPhoneNumber() {
+        List<Contact> contacts = contactService.findContactsByPhoneNumber("3456", 1L);
+        assertEquals(2, contacts.size());
     }
 
     private static void assertExceptionMessage(String expected, Exception exception) {

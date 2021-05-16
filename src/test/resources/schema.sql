@@ -1,7 +1,7 @@
 create table if not exists PERSON
 (
     ID BIGINT not null
-        primary key,
+        primary key auto_increment,
     NAME VARCHAR(255),
     PHONE_NUMBER VARCHAR(255)
 );
@@ -9,7 +9,7 @@ create table if not exists PERSON
 create table if not exists CONTACT
 (
     ID BIGINT not null
-        primary key,
+        primary key auto_increment,
     NAME VARCHAR(255),
     PHONE_NUMBER VARCHAR(255),
     PERSON_ID BIGINT not null,

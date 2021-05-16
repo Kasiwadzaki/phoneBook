@@ -6,6 +6,7 @@ import vadim.models.Contact;
 import vadim.models.Person;
 import vadim.repositories.ContactRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -62,5 +63,10 @@ public class ContactService {
         }
         contactRepository.save(contact);
         return contact;
+    }
+
+    public List<Contact> findContactsByPhoneNumber(String phoneNumber, Long personId) {
+        Person person = personService.getPerson(personId);
+        return contactRepository.findAllByPhoneNumberAndPerson(phoneNumber, person).orElse(new ArrayList<>());
     }
 }

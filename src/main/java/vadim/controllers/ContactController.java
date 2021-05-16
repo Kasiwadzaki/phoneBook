@@ -38,4 +38,9 @@ public class ContactController {
                                  @PathVariable("contactId") Long contactId, @RequestBody Contact updatedData) {
         return contactService.updateContact(personId, contactId, updatedData);
     }
+
+    @GetMapping("/find")
+    public List<Contact> findContactByPhoneNumber(@RequestParam String phoneNumber, @PathVariable Long personId) {
+        return contactService.findContactsByPhoneNumber(phoneNumber, personId);
+    }
 }

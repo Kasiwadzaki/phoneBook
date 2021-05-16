@@ -74,7 +74,7 @@ public class PersonService {
         return personsContainsName(persons, name);
     }
 
-    public List<Person> personsContainsName(List<Person> persons, String name) {
+    List<Person> personsContainsName(List<Person> persons, String name) {
         return persons.stream()
                 .filter(p -> p.getName().trim().toLowerCase().contains(name.trim().toLowerCase()))
                 .collect(Collectors.toList());

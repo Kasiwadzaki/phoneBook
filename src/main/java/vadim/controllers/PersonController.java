@@ -13,7 +13,7 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
-    @GetMapping("")
+    @GetMapping
     public List<Person> getAllPersons() {
         return personService.getAllPersons();
     }
@@ -38,7 +38,7 @@ public class PersonController {
         return personService.updatePerson(id, person);
     }
 
-    @GetMapping
+    @GetMapping("/find")
     public List<Person> findPersonByName(@RequestParam String name) {
         return personService.findPersonsWhoContainsName(name);
     }
