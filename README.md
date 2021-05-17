@@ -51,7 +51,7 @@
       
   Returns a [Person](#single-person-or-single-contact)  
   
-  >If {id} does not match throws IllegalArgumentsException with message: "No such user exists"
+  >If {id} does not match, will return Status Code 500 with message: "No such user exists"
   
   ### Create Person
   
@@ -70,7 +70,7 @@ Returns a [Person](#single-person-or-single-contact)
   
 Required fields: ```name```, ```phoneNumber``` 
 
-> If object == null or fields are empty throws IllegalArgumentsException with message:   
+> If object == null or fields are empty, will return Status Code 500 with message:   
 > -"Illegal arguments"  
 > -"Name cannot be empty"  
 > -"Phone number cannot be empty"  
@@ -121,7 +121,7 @@ Returns a [Persons](#multiple-persons-or-multiple-contacts)
 
 Returns a [Contact](#single-person-or-single-contact)  
 
->If {contactId} does not match throws IllegalArgumentsException with message: "No such contact exists"
+>If {contactId} does not match, will return Status Code 500 with message: "No such contact exists"
 
 ### Create Contact
 
@@ -140,7 +140,7 @@ Returns a [Contact](#single-person-or-single-contact)
   
 Required fields: ```name```, ```phoneNumber``` 
 
-> If object == null or fields are empty throws IllegalArgumentsException with message:   
+> If object == null or fields are empty will return Status Code 500 with message:   
 > -"Illegal arguments"  
 > -"Name cannot be empty"  
 > -"Phone number cannot be empty"  
