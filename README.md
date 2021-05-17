@@ -1,4 +1,13 @@
-<h1> JSON Objects returned by API:
+<h1> PhoneBook Spec  
+  
+### Running  
+  
+ Build the maven project, then write to command line: 
+  ```java -jar .\phoneBook-0.0.1-SNAPSHOT.jar```
+
+--------------------
+
+<h2> JSON Objects returned by API:
 
 
 ### Single Person or single Contact
@@ -26,7 +35,7 @@
 ]
 ```
 
-<h1> Endpoints:
+<h2> Endpoints:
   
   ### Get All Persons
   
