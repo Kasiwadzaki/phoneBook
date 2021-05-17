@@ -39,7 +39,7 @@ public class PersonController {
     }
 
     @GetMapping("/find")
-    public List<Person> findPersonByName(@RequestParam String name) {
+    public List<Person> findPersonsByName(@RequestParam String name) {
         return personService.findPersonsWhoContainsName(name);
     }
 }

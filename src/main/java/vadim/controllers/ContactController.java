@@ -40,7 +40,7 @@ public class ContactController {
     }
 
     @GetMapping("/find")
-    public List<Contact> findContactByPhoneNumber(@RequestParam String phoneNumber, @PathVariable Long personId) {
+    public List<Contact> findContactsByPhoneNumber(@RequestParam String phoneNumber, @PathVariable Long personId) {
         return contactService.findContactsByPhoneNumber(phoneNumber, personId);
     }
 }
