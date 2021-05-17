@@ -47,8 +47,8 @@ public class PersonService {
 
     public void deletePerson(Long id) {
         Person person = getPerson(id);
-        for (Contact contact : person.getContacts()) {
-            contactService.deleteContact(id, contact.getId());
+        for (Contact contact : contactService.getPersonContacts(person.getId())) {
+            contactService.deleteContact(person.getId(), contact.getId());
         }
         personRepository.delete(person);
     }
