@@ -70,7 +70,7 @@ Returns a [Person](#single-person-or-single-contact)
   
 Required fields: ```name```, ```phoneNumber``` 
 
-> If object == null or fields are empty, will return Status Code 500 with message:   
+> If object == null or fields are empty, will return Status Code 500 with one of these messages:   
 > -"Illegal arguments"  
 > -"Name cannot be empty"  
 > -"Phone number cannot be empty"  
@@ -140,7 +140,7 @@ Returns a [Contact](#single-person-or-single-contact)
   
 Required fields: ```name```, ```phoneNumber``` 
 
-> If object == null or fields are empty will return Status Code 500 with message:   
+> If object == null or fields are empty will return Status Code 500 with one of these messages:   
 > -"Illegal arguments"  
 > -"Name cannot be empty"  
 > -"Phone number cannot be empty"  
